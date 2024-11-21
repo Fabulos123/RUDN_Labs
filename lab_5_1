@@ -1,0 +1,24 @@
+#include <stdio.h>
+
+int main() {
+    int number;
+    int count = 0;
+    int sum = 0;
+
+    printf("Введите числа (для завершения введите 0):\n");
+    
+    // Цикл с предусловием
+    while (1) {
+        scanf("%d", &number);
+        if (number == 0) { // Завершение ввода при вводе 0
+            break;
+        }
+        count++;
+        if (count % 3 == 0) { // Каждый третий элемент
+            sum += number;
+        }
+    }
+    
+    printf("Сумма каждого третьего числа: %d\n", sum);
+    return 0;
+}
