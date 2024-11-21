@@ -1,0 +1,53 @@
+#include <stdio.h>
+
+int main() {
+    int suit, rank;
+    
+    // Ввод номера масти и достоинства
+    printf("Введите номер масти (1 - пики, 2 - трефы, 3 - бубны, 4 - червы): ");
+    scanf("%d", &suit);
+    printf("Введите номер достоинства (2 - 10, 11 - валет, 12 - дама, 13 - король, 14 - туз): ");
+    scanf("%d", &rank);
+    
+    // Определение названия достоинства
+    char *rank_name;
+    if (rank >= 2 && rank <= 10) {
+        // Для чисел от 2 до 10
+        printf("%d ", rank); // Вывод числа
+    } else if (rank == 11) {
+        rank_name = "Валет";
+    } else if (rank == 12) {
+        rank_name = "Дама";
+    } else if (rank == 13) {
+        rank_name = "Король";
+    } else if (rank == 14) {
+        rank_name = "Туз";
+    } else {
+        printf("Неправильный номер достоинства.\n");
+        return 1; // Завершение программы с ошибкой
+    }
+
+    // Определение названия масти
+    char *suit_name;
+    if (suit == 1) {
+        suit_name = "пик";
+    } else if (suit == 2) {
+        suit_name = "треф";
+    } else if (suit == 3) {
+        suit_name = "бубен";
+    } else if (suit == 4) {
+        suit_name = "червей";
+    } else {
+        printf("Неправильный номер масти.\n");
+        return 1; // Завершение программы с ошибкой
+    }
+
+    // Вывод полного названия карты
+    if (rank >= 2 && rank <= 10) {
+        printf("%d %s\n", rank, suit_name);
+    } else {
+        printf("%s %s\n", rank_name, suit_name);
+    }
+
+    return 0;
+}
