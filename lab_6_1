@@ -1,0 +1,25 @@
+#include <iostream>
+
+using namespace std;
+
+int main() {
+    for (int num = 1; num <= 1000; num++) {
+        int sum_of_divisors = 0;
+        int divisor = 1;
+
+        // Цикл с постусловием для нахождения суммы делителей
+        do {
+            if (num % divisor == 0) {
+                sum_of_divisors += divisor;
+            }
+            divisor++;
+        } while (divisor < num); // продолжаем, пока делитель меньше числа
+
+        // Сравниваем сумму делителей с самим числом
+        if (sum_of_divisors == num) {
+            cout << num << " является совершенным числом." << endl;
+        }
+    }
+
+    return 0;
+}
