@@ -1,6 +1,6 @@
 number = 10
 
-while number < 100:  # Цикл с предусловием
+while number < 100:  
     # Вычисляем десятки и единицы
     tens = number // 10
     units = number % 10
