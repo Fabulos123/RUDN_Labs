@@ -1,0 +1,48 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+int main() {
+    int M, N;
+
+    cout << "Введите количество строк (M): ";
+    cin >> M;
+    cout << "Введите количество столбцов (N): ";
+    cin >> N;
+
+    vector<vector<int>> matrix(M, vector<int>(N));
+
+    // Ввод элементов матрицы
+    cout << "Введите элементы матрицы:" << endl;
+    for (int i = 0; i < M; i++) {
+        for (int j = 0; j < N; j++) {
+            cin >> matrix[i][j];
+        }
+    }
+
+    // Обработка каждой строки
+    for (int i = 0; i < M; i++) {
+        double sum = 0;
+        int count = 0;
+
+        // Считаем сумму и количество элементов в строке
+        for (int j = 0; j < N; j++) {
+            sum += matrix[i][j];
+        }
+
+        double average = sum / N;  // Вычисляем среднее арифметическое
+
+        // Считаем количество элементов меньше среднего
+        for (int j = 0; j < N; j++) {
+            if (matrix[i][j] < average) {
+                count++;
+            }
+        }
+
+        // Выводим количество элементов меньше среднего
+        cout << "Количество элементов в строке " << i + 1 << ", меньше среднего: " << count << endl;
+    }
+
+    return 0;
+}
