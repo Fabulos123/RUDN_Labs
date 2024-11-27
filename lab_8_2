@@ -1,21 +1,34 @@
 # Задаем размер матрицы
 N = 4
 
-# Создаем случайную матрицу A(N, N)
-A = np.random.randint(1, 100, size=(N, N))
+# Создаем матрицу A(N, N) вручную (вы можете заменить на ваши значения)
+A = [
+    [10, 2, 3, 4],
+    [5, 25, 7, 8],
+    [9, 30, 11, 12],
+    [13, 14, 15, 16]
+]
 
 # Задаем номер строки m, с которой нужно переставить
-m = 2  # Обратите внимание, что m должна быть в пределах от 0 до N-1
+m = 2  # Убедитесь, что 0 ≤ m < N
 
 print("Исходная матрица:")
-print(A)
+for row in A:
+    print(row)
 
 # Находим индекс строки с максимальным элементом на главной диагонали
-max_diag_index = np.argmax(np.diag(A))
+max_diag_index = 0
+max_diag_value = A[0][0]
+
+for i in range(1, N):
+    if A[i][i] > max_diag_value:
+        max_diag_value = A[i][i]
+        max_diag_index = i
 
 # Переставляем строки, если они разные
 if max_diag_index != m:
-    A[[max_diag_index, m]] = A[[m, max_diag_index]]
+    A[max_diag_index], A[m] = A[m], A[max_diag_index]
 
 print("Матрица после перестановки:")
-print(A)
+for row in A:
+    print(row)
