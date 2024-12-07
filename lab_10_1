@@ -1,0 +1,43 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+int sumArrayElements(const vector<int>& arr, int K, int L) {
+    int sum = 0;
+    for (int i = K; i <= L; ++i) {
+        sum += arr[i];
+    }
+    return sum;
+}
+
+int main() {
+    int N, K, L;
+    
+    cout << "Введите размер массива N: ";
+    cin >> N;
+
+    vector<int> arr(N);
+    cout << "Введите элементы массива: ";
+    for (int i = 0; i < N; ++i) {
+        cin >> arr[i];
+    }
+
+    cout << "Введите значения K и L (1 ≤ K ≤ L ≤ N): ";
+    cin >> K >> L;
+
+    // Приведение K и L к индексу массива (нумерация с нуля)
+    K--; 
+    L--;
+
+    // Проверка на корректность K и L
+    if (K < 0 || L >= N || K > L) {
+        cout << "Некорректные значения K и L." << endl;
+        return 1;
+    }
+
+    int result = sumArrayElements(arr, K, L);
+    cout << "Сумма элементов массива с номерами от " << K + 1 << " до " << L + 1 << ": " << result << endl;
+
+    return 0;
+}
