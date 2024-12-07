@@ -1,53 +1,70 @@
-#include <iostream>
-#include <cmath>
+#include <stdio.h>
 
-using namespace std;
-
-struct Point {
+typedef struct {
     double x;
     double y;
-};
+} Point;
 
-bool calculateCircle(Point p1, Point p2, Point p3, Point& center, double& radius) {
-    double A = p1.x * (p2.y - p3.y) - p1.y * (p2.x - p3.x) + p2.x * p3.y - p2.y * p3.x;
+typedef struct {
+    Point center;
+    double radius;
+} Circle;
+
+int isCollinear(Point p1, Point p2, Point p3) {
+    // Проверка коллинеарности с помощью площади треугольника
+    return (p1.x * (p2.y - p3.y) + 
+            p2.x * (p3.y - p1.y) + 
+            p3.x * (p1.y - p2.y)) == 0;
+}
+
+Circle findCircle(Point p1, Point p2, Point p3) {
+    Circle circle;
+    double A = p1.x * (p2.y - p3.y) - p1.y * (p2.x - p3.x) + 
+               p2.x * p3.y - p3.x * p2.y;
     
     if (A == 0) {
-        return false; // Точки коллинеарны, окружность не может быть определена
+        printf("Точки коллинеарны. Невозможно определить окружность.\n");
+        circle.radius = -1; // Указываем, что вычисление невозможно
+        return circle;
     }
-
-    double B = (p1.x * p1.x + p1.y * p1.y) * (p2.y - p3.y) + 
+    
+    double B = (p1.x * p1.x + p1.y * p1.y) * (p2.y - p3.y) +
                (p2.x * p2.x + p2.y * p2.y) * (p3.y - p1.y) +
                (p3.x * p3.x + p3.y * p3.y) * (p1.y - p2.y);
     
-    double C = (p1.x * p1.x + p1.y * p1.y) * (p3.x - p2.x) + 
+    double C = (p1.x * p1.x + p1.y * p1.y) * (p3.x - p2.x) +
                (p2.x * p2.x + p2.y * p2.y) * (p1.x - p3.x) +
                (p3.x * p3.x + p3.y * p3.y) * (p2.x - p1.x);
     
-    center.x = -B / (2 * A);
-    center.y = -C / (2 * A);
+    double D = (p1.x * p1.x + p1.y * p1.y) * (p2.x * p3.y - p3.x * p2.y) +
+               (p2.x * p2.x + p2.y * p2.y) * (p3.x * p1.y - p1.x * p3.y) +
+               (p3.x * p3.x + p3.y * p3.y) * (p1.x * p2.y - p2.x * p1.y);
     
-    radius = sqrt((center.x - p1.x) * (center.x - p1.x) + (center.y - p1.y) * (center.y - p1.y));
+    circle.center.x = -B / (2 * A);
+    circle.center.y = -C / (2 * A);
+    circle.radius = sqrt((B * B + C * C - 4 * A * D)) / (2 * fabs(A));
     
-    return true;
+    return circle;
 }
 
 int main() {
-    Point p1, p2, p3, center;
-    double radius;
-
-    cout << "Введите координаты первой точки (x1 y1): ";
-    cin >> p1.x >> p1.y;
-    cout << "Введите координаты второй точки (x2 y2): ";
-    cin >> p2.x >> p2.y;
-    cout << "Введите координаты третьей точки (x3 y3): ";
-    cin >> p3.x >> p3.y;
-
-    if (calculateCircle(p1, p2, p3, center, radius)) {
-        cout << "Центр окружности: (" << center.x << ", " << center.y << ")" << endl;
-        cout << "Радиус окружности: " << radius << endl;
-    } else {
-        cout << "Точки коллинеарны, окружность не может быть определена." << endl;
+    Point p1, p2, p3;
+    
+    printf("Введите координаты первой точки (x1 y1): ");
+    scanf("%lf %lf", &p1.x, &p1.y);
+    
+    printf("Введите координаты второй точки (x2 y2): ");
+    scanf("%lf %lf", &p2.x, &p2.y);
+    
+    printf("Введите координаты третьей точки (x3 y3): ");
+    scanf("%lf %lf", &p3.x, &p3.y);
+    
+    Circle circle = findCircle(p1, p2, p3);
+    
+    if (circle.radius != -1) {
+        printf("Центр окружности: (%.2f, %.2f)\n", circle.center.x, circle.center.y);
+        printf("Радиус окружности: %.2f\n", circle.radius);
     }
-
+    
     return 0;
 }
