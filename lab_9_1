@@ -1,0 +1,53 @@
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+struct Point {
+    double x;
+    double y;
+};
+
+bool calculateCircle(Point p1, Point p2, Point p3, Point& center, double& radius) {
+    double A = p1.x * (p2.y - p3.y) - p1.y * (p2.x - p3.x) + p2.x * p3.y - p2.y * p3.x;
+    
+    if (A == 0) {
+        return false; // Точки коллинеарны, окружность не может быть определена
+    }
+
+    double B = (p1.x * p1.x + p1.y * p1.y) * (p2.y - p3.y) + 
+               (p2.x * p2.x + p2.y * p2.y) * (p3.y - p1.y) +
+               (p3.x * p3.x + p3.y * p3.y) * (p1.y - p2.y);
+    
+    double C = (p1.x * p1.x + p1.y * p1.y) * (p3.x - p2.x) + 
+               (p2.x * p2.x + p2.y * p2.y) * (p1.x - p3.x) +
+               (p3.x * p3.x + p3.y * p3.y) * (p2.x - p1.x);
+    
+    center.x = -B / (2 * A);
+    center.y = -C / (2 * A);
+    
+    radius = sqrt((center.x - p1.x) * (center.x - p1.x) + (center.y - p1.y) * (center.y - p1.y));
+    
+    return true;
+}
+
+int main() {
+    Point p1, p2, p3, center;
+    double radius;
+
+    cout << "Введите координаты первой точки (x1 y1): ";
+    cin >> p1.x >> p1.y;
+    cout << "Введите координаты второй точки (x2 y2): ";
+    cin >> p2.x >> p2.y;
+    cout << "Введите координаты третьей точки (x3 y3): ";
+    cin >> p3.x >> p3.y;
+
+    if (calculateCircle(p1, p2, p3, center, radius)) {
+        cout << "Центр окружности: (" << center.x << ", " << center.y << ")" << endl;
+        cout << "Радиус окружности: " << radius << endl;
+    } else {
+        cout << "Точки коллинеарны, окружность не может быть определена." << endl;
+    }
+
+    return 0;
+}
