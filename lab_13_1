@@ -1,0 +1,48 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+typedef struct {
+    char startDate[11]; // Формат: YYYY-MM-DD
+    char expirationDate[11]; // Формат: YYYY-MM-DD
+    int routeNumber;
+    char travelDate[11]; // Формат: YYYY-MM-DD
+    char boardingTime[6]; // Формат: HH:MM
+} Express;
+
+// Функция для сравнения дат
+int compareDates(const char* date1, const char* date2) {
+    return strcmp(date1, date2);
+}
+
+// Функция сортировки массива структур Express по дате начала
+void sortExpressByStartDate(Express* expressArray, int size) {
+    for (int i = 0; i < size - 1; i++) {
+        for (int j = 0; j < size - i - 1; j++) {
+            if (compareDates(expressArray[j].startDate, expressArray[j + 1].startDate) > 0) {
+                // Обмен элементов
+                Express temp = expressArray[j];
+                expressArray[j] = expressArray[j + 1];
+                expressArray[j + 1] = temp;
+            }
+        }
+    }
+}
+
+int main() {
+    Express expressArray[3] = {
+        {"2023-10-01", "2023-10-31", 101, "2023-10-05", "10:00"},
+        {"2023-09-15", "2023-10-15", 102, "2023-09-20", "14:00"},
+        {"2023-11-05", "2023-11-30", 103, "2023-11-10", "09:00"}
+    };
+
+    int size = sizeof(expressArray) / sizeof(expressArray[0]);
+    sortExpressByStartDate(expressArray, size);
+
+    // Вывод отсортированного массива
+    for (int i = 0; i < size; i++) {
+        printf("Маршрут: %d, Дата начала: %s\n", expressArray[i].routeNumber, expressArray[i].startDate);
+    }
+
+    return 0;
+}
