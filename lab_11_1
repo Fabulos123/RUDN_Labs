@@ -1,0 +1,53 @@
+#include <stdio.h>
+
+#define MAX_ROWS 100
+#define MAX_COLS 100
+
+void findMaxInColumns(int matrix[MAX_ROWS][MAX_COLS], int rows, int cols, int maxElements[]) {
+    for (int j = 0; j < cols; j++) {
+        maxElements[j] = matrix[0][j]; // Инициализируем максимальное значение первым элементом столбца
+        for (int i = 1; i < rows; i++) {
+            if (matrix[i][j] > maxElements[j]) {
+                maxElements[j] = matrix[i][j];
+            }
+        }
+    }
+}
+
+int containsK(int arr[], int size, int K) {
+    for (int i = 0; i < size; i++) {
+        if (arr[i] == K) {
+            return 1; // K найден
+        }
+    }
+    return 0; // K не найден
+}
+
+int main() {
+    int matrix[MAX_ROWS][MAX_COLS];
+    int maxElements[MAX_COLS];
+    int rows, cols, K;
+
+    printf("Введите количество строк и столбцов матрицы: ");
+    scanf("%d %d", &rows, &cols);
+    
+    printf("Введите элементы матрицы:\n");
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            scanf("%d", &matrix[i][j]);
+        }
+    }
+
+    printf("Введите целое число K: ");
+    scanf("%d", &K);
+
+    findMaxInColumns(matrix, rows, cols, maxElements);
+
+    if (containsK(maxElements, cols, K)) {
+        printf("Число %d встречается среди максимальных элементов столбцов матрицы.\n", K);
+    } else {
+        printf("Число %d не встречается среди максимальных элементов столбцов матрицы.\n", K);
+    }
+
+    return 0;
+}
