@@ -1,0 +1,71 @@
+#include <iostream>
+#include <vector>
+#include <string>
+#include <algorithm>
+
+struct Insurance {
+    std::string programName;   // название страховой программы
+    double interestRate;        // процентная ставка по страховке
+    int term;                  // срок предоставления страховки
+    double coverageAmount;      // сумма страховки
+};
+
+// Функция для сортировки вектора страховых программ по сумме страховки
+void sortByCoverageAmount(std::vector<Insurance>& insurances) {
+    std::sort(insurances.begin(), insurances.end(), [](const Insurance& a, const Insurance& b) {
+        return a.coverageAmount < b.coverageAmount;
+    });
+}
+
+int main() {
+    std::vector<Insurance> insurances = {
+        {"Программа A", 1.5, 12, 100000},
+        {"Программа B", 2.0, 24, 150000},
+        {"Программа C", 1.8, 18, 90000}
+    };
+
+    sortByCoverageAmount(insurances);
+
+    std::cout << "Страховые программы отсортированные по сумме страховки:\n";
+    for (const auto& insurance : insurances) {
+        std::cout << insurance.programName 
+                  << ": " << insurance.coverageAmount << std::endl;
+    }
+
+    return 0;
+}#include <iostream>
+#include <vector>
+#include <string>
+#include <algorithm>
+
+struct Insurance {
+    std::string programName;   // название страховой программы
+    double interestRate;        // процентная ставка по страховке
+    int term;                  // срок предоставления страховки
+    double coverageAmount;      // сумма страховки
+};
+
+// Функция для сортировки вектора страховых программ по сумме страховки
+void sortByCoverageAmount(std::vector<Insurance>& insurances) {
+    std::sort(insurances.begin(), insurances.end(), [](const Insurance& a, const Insurance& b) {
+        return a.coverageAmount < b.coverageAmount;
+    });
+}
+
+int main() {
+    std::vector<Insurance> insurances = {
+        {"Программа A", 1.5, 12, 100000},
+        {"Программа B", 2.0, 24, 150000},
+        {"Программа C", 1.8, 18, 90000}
+    };
+
+    sortByCoverageAmount(insurances);
+
+    std::cout << "Страховые программы отсортированные по сумме страховки:\n";
+    for (const auto& insurance : insurances) {
+        std::cout << insurance.programName 
+                  << ": " << insurance.coverageAmount << std::endl;
+    }
+
+    return 0;
+}
