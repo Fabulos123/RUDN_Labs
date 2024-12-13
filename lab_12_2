@@ -1,0 +1,29 @@
+#include <stdio.h>
+
+struct Phone {
+    char country[50];       // страна производителя
+    char manufacturer[50];  // производитель
+    float weight;           // вес телефона в граммах
+    float screen_size;      // размер диагонали экрана в дюймах
+    float price;            // цена телефона
+};
+
+int main() {
+    struct Phone myPhone;
+
+    // Пример заполнения структуры
+    snprintf(myPhone.country, sizeof(myPhone.country), "Китай");
+    snprintf(myPhone.manufacturer, sizeof(myPhone.manufacturer), "Huawei");
+    myPhone.weight = 200.5;
+    myPhone.screen_size = 6.5;
+    myPhone.price = 599.99;
+
+    // Вывод информации о телефоне
+    printf("Страна производителя: %s\n", myPhone.country);
+    printf("Производитель: %s\n", myPhone.manufacturer);
+    printf("Вес телефона: %.2f г\n", myPhone.weight);
+    printf("Диагональ экрана: %.1f дюймов\n", myPhone.screen_size);
+    printf("Цена: %.2f руб.\n", myPhone.price);
+
+    return 0;
+}
