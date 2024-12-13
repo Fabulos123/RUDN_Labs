@@ -1,0 +1,45 @@
+#include <iostream>
+#include <string>
+
+struct Student {
+    std::string lastName;    // Фамилия
+    char initials[3];        // Инициалы (например: 'И. И.')
+    int groupNumber;         // Номер группы
+    float grades[5];         // Успеваемость
+
+    // Метод для вывода информации о студенте
+    void display() {
+        std::cout << "Фамилия: " << lastName << "\n";
+        std::cout << "Инициалы: " << initials << "\n";
+        std::cout << "Номер группы: " << groupNumber << "\n";
+        std::cout << "Успеваемость: ";
+        for (int i = 0; i < 5; ++i) {
+            std::cout << grades[i] << " ";
+        }
+        std::cout << "\n";
+    }
+};
+
+int main() {
+    Student student;
+
+    // Ввод данных о студенте
+    std::cout << "Введите фамилию: ";
+    std::cin >> student.lastName;
+    
+    std::cout << "Введите инициалы (например, 'И. И.'): ";
+    std::cin >> student.initials;
+    
+    std::cout << "Введите номер группы: ";
+    std::cin >> student.groupNumber;
+
+    std::cout << "Введите успеваемость (5 оценок): ";
+    for (int i = 0; i < 5; ++i) {
+        std::cin >> student.grades[i];
+    }
+
+    // Вывод данных о студенте
+    student.display();
+
+    return 0;
+}
